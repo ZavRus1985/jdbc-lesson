@@ -5,59 +5,58 @@ import java.util.Objects;
 
 public class Client {
 
-    Long ID;
-    String NAME;
-    int AGE;
-    String CITY;
+    private Long id;
+    private String name;
+    private int age;
+    private String city;
+    private BigDecimal totalSumOrders;
 
-    BigDecimal Total_Sum_Orders;
-
-    public Client(Long ID, String NAME, int AGE, String CITY, BigDecimal Total_Sum_Orders) {
-        this.ID = ID;
-        this.NAME = NAME;
-        this.AGE = AGE;
-        this.CITY = CITY;
-        this.Total_Sum_Orders = Total_Sum_Orders;
+    public Client(Long id, String name, int age, String city, BigDecimal totalSumOrders) {
+        this.id = id;
+        this.name = name;
+        this.age = age;
+        this.city = city;
+        this.totalSumOrders = totalSumOrders;
     }
 
-    public Long getID() {
-        return ID;
+    public Long getId() {
+        return id;
     }
 
-    public String getNAME() {
-        return NAME;
+    public String getName() {
+        return name;
     }
 
-    public int getAGE() {
-        return AGE;
+    public int getAge() {
+        return age;
     }
 
-    public String getCITY() {
-        return CITY;
+    public String getCity() {
+        return city;
     }
 
-    public BigDecimal getTotal_Sum_Orders() {
-        return Total_Sum_Orders;
+    public BigDecimal getTotalSumOrders() {
+        return totalSumOrders;
     }
 
-    public void setID(Long ID) {
-        this.ID = ID;
+    public void setId(Long id) {
+        this.id = id;
     }
 
-    public void setNAME(String NAME) {
-        this.NAME = NAME;
+    public void setName(String name) {
+        this.name = name;
     }
 
-    public void setAGE(int AGE) {
-        this.AGE = AGE;
+    public void setAge(int age) {
+        this.age = age;
     }
 
-    public void setCITY(String CITY) {
-        this.CITY = CITY;
+    public void setCity(String city) {
+        this.city = city;
     }
 
-    public void setTotal_Sum_Orders(BigDecimal total_Sum_Orders) {
-        Total_Sum_Orders = total_Sum_Orders;
+    public void setTotalSumOrders(BigDecimal totalSumOrders) {
+        this.totalSumOrders = totalSumOrders;
     }
 
     @Override
@@ -65,22 +64,22 @@ public class Client {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Client client = (Client) o;
-        return Objects.equals(ID, client.ID);
+        return Objects.equals(id, client.id);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(ID);
+        return Objects.hash(id);
     }
 
     @Override
     public String toString() {
         return "Client{" +
-                "ID=" + ID +
-                ", NAME='" + NAME + '\'' +
-                ", AGE=" + AGE +
-                ", CITY='" + CITY + '\'' +
-                ", Total_Sum_Orders=" + Total_Sum_Orders +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", age=" + age +
+                ", city='" + city + '\'' +
+                ", totalSumOrders=" + totalSumOrders +
                 '}';
     }
 }

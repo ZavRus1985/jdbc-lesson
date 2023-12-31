@@ -7,14 +7,14 @@ import java.util.List;
 
 public class SqlFileReader {
 
-    static String sqlQuerry() {
+   public static String sqlQuerry() {
 
         String sql = "";
         try {
-            List<String> lines = Files.readAllLines(Path.of("C:\\Users\\Professional\\IdeaProjects\\JDBCLesson1\\sqlQuerry.txt"));
+            List<String> lines = Files.readAllLines(Path.of("sqlQuerry.txt"));
             sql = lines.toString();
         } catch (IOException e) {
-            throw new RuntimeException(e);
+            throw new RuntimeException("Error reading sql-file: " + "sqlQuerry.txt",  e);
         }
         finally {
             return sql;

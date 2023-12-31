@@ -15,14 +15,14 @@ public class OrderRepository {
 
 //Столбцы: id, продукт, количество, стоимость за шт., дата-время заказа, client_id
 
-        String sql = "CREATE TABLE IF NOT EXISTS Orders(" +
-                "ID int primary key auto_increment," +
-                "PRODUCT varchar(50)," +
-                "COUNT int," +
-                "PRICE decimal(5,2)," +
-                "DateOrder datetime," +
-                "Client_ID int," +
-                "foreign key (Client_ID) references Clients(ID) ON DELETE CASCADE)"
+        String sql = "create table if not exists orders(" +
+                "id int primary key auto_increment," +
+                "product varchar(50)," +
+                "count int," +
+                "price decimal(5,2)," +
+                "dateOrder datetime," +
+                "client_id int," +
+                "foreign key (client_id) references clients(id) on delete cascade)"
                 ;
 
         try (PreparedStatement statement = connection.prepareStatement(sql)) {

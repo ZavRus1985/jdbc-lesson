@@ -5,79 +5,79 @@ import java.time.LocalDateTime;
 
 public class Order {
 
-    Long ID;
-    String PRODUCT;
-    int COUNT;
-    BigDecimal PRICE;
-    LocalDateTime DateOrder;
-    int Client_ID;
+    private Long id;
+    private String product;
+    private int count;
+    private BigDecimal price;
+    private LocalDateTime dateOrder;
+    private int clientId;
 
-    public Order(Long ID, String PRODUCT, int COUNT, BigDecimal PRICE, LocalDateTime dateOrder, int client_ID) {
-        this.ID = ID;
-        this.PRODUCT = PRODUCT;
-        this.COUNT = COUNT;
-        this.PRICE = PRICE;
-        DateOrder = dateOrder;
-        Client_ID = client_ID;
+    public Order(Long id, String product, int count, BigDecimal price, LocalDateTime dateOrder, int client_Id) {
+        this.id = id;
+        this.product = product;
+        this.count = count;
+        this.price = price;
+        this.dateOrder = dateOrder;
+        clientId = client_Id;
     }
 
-    public Long getID() {
-        return ID;
+    public Long getId() {
+        return id;
     }
 
-    public String getPRODUCT() {
-        return PRODUCT;
+    public String getProduct() {
+        return product;
     }
 
-    public int getCOUNT() {
-        return COUNT;
+    public int getCount() {
+        return count;
     }
 
-    public BigDecimal getPRICE() {
-        return PRICE;
+    public BigDecimal getPrice() {
+        return price;
     }
 
     public LocalDateTime getDateOrder() {
-        return DateOrder;
+        return dateOrder;
     }
 
-    public int getClient_ID() {
-        return Client_ID;
+    public int getClientId() {
+        return clientId;
     }
 
-    public void setID(Long ID) {
-        this.ID = ID;
+    public void setId(Long id) {
+        this.id = id;
     }
 
-    public void setPRODUCT(String PRODUCT) {
-        this.PRODUCT = PRODUCT;
+    public void setProduct(String product) {
+        this.product = product;
     }
 
-    public void setCOUNT(int COUNT) {
-        this.COUNT = COUNT;
+    public void setCount(int count) {
+        this.count = count;
     }
 
-    public void setPRICE(BigDecimal PRICE) {
-        this.PRICE = PRICE;
+    public void setPrice(BigDecimal price) {
+        this.price = price;
     }
 
     public void setDateOrder(LocalDateTime dateOrder) {
-        DateOrder = dateOrder;
+        this.dateOrder = dateOrder;
     }
 
-    public void setClient_ID(int client_ID) {
-        Client_ID = client_ID;
+    public void setClientId(int clientId) {
+        this.clientId = clientId;
     }
 
     @Override
     public String toString() {
         return "Order{" +
-                "ID=" + ID +
-                ", PRODUCT='" + PRODUCT + '\'' +
-                ", COUNT=" + COUNT +
-                ", PRICE=" + PRICE +
-                ", DateOrder=" + DateOrder +
-                ", Client_ID=" + Client_ID +
+                "id=" + id +
+                ", product='" + product + '\'' +
+                ", count=" + count +
+                ", price=" + price +
+                ", dateOrder=" + dateOrder +
+                ", clientId=" + clientId +
                 '}';
     }
 }

@@ -2,7 +2,6 @@ package org.example;
 
 import java.math.BigDecimal;
 import java.sql.*;
-import java.time.LocalDateTime;
 import java.util.*;
 
 //5. Описать следующие методы для работы с БД:
@@ -17,17 +16,16 @@ public class ClientRepository {
 
     public void createTableClient() {
 
-
-//        String sql = "CREATE TABLE IF NOT EXISTS Clients(" +
-//                "ID int primary key auto_increment," +
-//                "NAME varchar(50)," +
-//                "AGE int," +
-//                "CITY varchar(50))";
+//        String sql = "create table if not exists clients(" +
+//                "id int primary key auto_increment," +
+//                "name varchar(50)," +
+//                "age int," +
+//                "city varchar(50))";
 
 //        String sql = SqlFileReader.sqlQuerry();
 
-        String sql = "ALTER TABLE Clients \n" +
-                     "ADD COLUMN Total_Sum_Orders DECIMAL(5,2) DEFAULT 0.00;";
+        String sql = "alter table clients \n" +
+                     "add column total_Sum_Orders DECIMAL(5,2) DEFAULT 0.00;";
 
         try (PreparedStatement statement = connection.prepareStatement(sql)) {
 
@@ -42,7 +40,7 @@ public class ClientRepository {
 
     public List<Client> findAllClients() {
 
-        String sql = "select * from Clients";
+        String sql = "select * from clients";
 
         try (Statement statement = connection.createStatement();
              ResultSet resultSet = statement.executeQuery(sql)) {
@@ -51,12 +49,12 @@ public class ClientRepository {
             while (resultSet.next()) {
 
                 Long id = resultSet.getLong("id");
-                String NAME = resultSet.getString("NAME");
-                Integer AGE = resultSet.getInt("AGE");
-                String CITY = resultSet.getString("CITY");
-                BigDecimal Total_Sum_Orders = resultSet.getBigDecimal("Total_Sum_Orders");
+                String name = resultSet.getString("name");
+                Integer age = resultSet.getInt("age");
+                String city = resultSet.getString("city");
+                BigDecimal total_Sum_Orders = resultSet.getBigDecimal("total_Sum_Orders");
 
-                Client person = new Client(id, NAME, AGE, CITY, Total_Sum_Orders);
+                Client person = new Client(id, name, age, city, total_Sum_Orders);
                 clients.add(person);
             }
             return clients;
@@ -69,15 +67,14 @@ public class ClientRepository {
 
     public boolean savePerson(Client person) {
 
-
         String sql = "insert into Clients values (?, ?, ?, ?, ?)";
         try (PreparedStatement statement = connection.prepareStatement(sql)) {
 
             statement.setNull(1, Types.NULL);
-            statement.setString(2, person.getNAME());
-            statement.setInt(3, person.getAGE());
-            statement.setString(4, person.getCITY());
-            statement.setBigDecimal(5, person.getTotal_Sum_Orders());
+            statement.setString(2, person.getName());
+            statement.setInt(3, person.getAge());
+            statement.setString(4, person.getCity());
+            statement.setBigDecimal(5, person.getTotalSumOrders());
 
             int rowsAffected = statement.executeUpdate();
             return rowsAffected > 0;
@@ -91,14 +88,14 @@ public class ClientRepository {
     public boolean updatePerson(long personId, Client person) {
 
 
-        String sql = "update Clients set NAME = ?, AGE = ?, CITY = ?, Total_Sum_Orders = ? where ID = ?";
+        String sql = "update clients set name = ?, age = ?, city = ?, total_Sum_Orders = ? where id = ?";
 
         try (PreparedStatement statement = connection.prepareStatement(sql)) {
 
-            statement.setString(1, person.getNAME());
-            statement.setInt(2, person.getAGE());
-            statement.setString(3, person.getCITY());
-            statement.setBigDecimal(4, person.getTotal_Sum_Orders());
+            statement.setString(1, person.getName());
+            statement.setInt(2, person.getAge());
+            statement.setString(3, person.getCity());
+            statement.setBigDecimal(4, person.getTotalSumOrders());
             statement.setLong(5, personId);
 
             int rowsAffected = statement.executeUpdate();
@@ -113,7 +110,7 @@ public class ClientRepository {
     public boolean deletePerson(long personId) {
 
 
-        String sql = "delete from Clients where id = ?";
+        String sql = "delete from clients where id = ?";
 
         try (PreparedStatement statement = connection.prepareStatement(sql)) {
 
@@ -129,9 +126,9 @@ public class ClientRepository {
 
 //    public Map<Client, List<Order>> findAllClients_map() {
 //
-//        String sql = "select * from Clients c\n" +
-//                "inner join Orders o\n" +
-//                "on o.Client_ID = c.ID;";
+//        String sql = "select * from clients c\n" +
+//                "inner join orders o\n" +
+//                "on o.client_id = c.id;";
 //
 //        try (Statement statement = connection.createStatement();
 //             ResultSet resultSet = statement.executeQuery(sql)) {
@@ -142,20 +139,20 @@ public class ClientRepository {
 //
 //
 //                Long id = resultSet.getLong("ID");
-//                String NAME = resultSet.getString("NAME");
-//                Integer AGE = resultSet.getInt("AGE");
-//                String CITY = resultSet.getString("CITY");
+//                String name = resultSet.getString("name");
+//                Integer age = resultSet.getInt("age");
+//                String city = resultSet.getString("city");
 //
-//                Client person = new Client(id, NAME, AGE, CITY);
+//                Client person = new Client(id, name, age, city);
 //
-//                Long id1 = resultSet.getLong("ID");
-//                String PRODUCT = resultSet.getString("PRODUCT");
-//                Integer COUNT = resultSet.getInt("COUNT");
-//                BigDecimal PRICE = resultSet.getBigDecimal("PRICE");
-//                LocalDateTime DateOrder = resultSet.getTimestamp("DateOrder").toLocalDateTime();
-//                Integer id2 = resultSet.getInt("Client_ID");
+//                Long id1 = resultSet.getLong("id");
+//                String product = resultSet.getString("product");
+//                Integer count = resultSet.getInt("count");
+//                BigDecimal price = resultSet.getBigDecimal("price");
+//                LocalDateTime dateOrder = resultSet.getTimestamp("dateOrder").toLocalDateTime();
+//                Integer id2 = resultSet.getInt("client_id");
 //
-//                Order order = new Order(id1, PRODUCT, COUNT, PRICE, DateOrder, id2);
+//                Order order = new Order(id1, product, count, price, dateOrder, id2);
 //
 //                clients.merge(person, new ArrayList<Order>(List.of(order)), (a,b) ->  {
 //                    List <Order> orders = new ArrayList<>(a);
