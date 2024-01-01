@@ -12,7 +12,7 @@ public class SqlFileReader {
         String sql = "";
         try {
             List<String> lines = Files.readAllLines(Path.of("sqlQuerry.txt"));
-            sql = lines.toString();
+            sql = String.join("", lines);
         } catch (IOException e) {
             throw new RuntimeException("Error reading sql-file: " + "sqlQuerry.txt",  e);
         }

@@ -1,5 +1,5 @@
-CREATE TABLE IF NOT EXISTS Abc(
-ID int primary key auto_increment,
-NAME varchar(50),
-AGE int,
-CITY varchar(50));
+create table if not exists clients(
+id int primary key auto_increment,
+name varchar(50),
+age int,
+city varchar(50));

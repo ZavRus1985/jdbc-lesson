@@ -2,6 +2,7 @@ package org.example;
 
 import java.math.BigDecimal;
 import java.sql.*;
+import java.time.LocalDateTime;
 import java.util.*;
 
 //5. Описать следующие методы для работы с БД:
@@ -16,14 +17,17 @@ public class ClientRepository {
 
     public void createTableClient() {
 
+        // 1 вариаинт создания таблицы
 //        String sql = "create table if not exists clients(" +
 //                "id int primary key auto_increment," +
 //                "name varchar(50)," +
 //                "age int," +
 //                "city varchar(50))";
 
+        // 2 вариаинт создания таблицы
 //        String sql = SqlFileReader.sqlQuerry();
 
+        // изменение таблицы
         String sql = "alter table clients \n" +
                      "add column total_Sum_Orders DECIMAL(5,2) DEFAULT 0.00;";
 
@@ -124,47 +128,48 @@ public class ClientRepository {
         }
     }
 
-//    public Map<Client, List<Order>> findAllClients_map() {
-//
-//        String sql = "select * from clients c\n" +
-//                "inner join orders o\n" +
-//                "on o.client_id = c.id;";
-//
-//        try (Statement statement = connection.createStatement();
-//             ResultSet resultSet = statement.executeQuery(sql)) {
-//
-//            Map<Client,List<Order>> clients = new LinkedHashMap<>();
-//
-//            while (resultSet.next()) {
-//
-//
-//                Long id = resultSet.getLong("ID");
-//                String name = resultSet.getString("name");
-//                Integer age = resultSet.getInt("age");
-//                String city = resultSet.getString("city");
-//
-//                Client person = new Client(id, name, age, city);
-//
-//                Long id1 = resultSet.getLong("id");
-//                String product = resultSet.getString("product");
-//                Integer count = resultSet.getInt("count");
-//                BigDecimal price = resultSet.getBigDecimal("price");
-//                LocalDateTime dateOrder = resultSet.getTimestamp("dateOrder").toLocalDateTime();
-//                Integer id2 = resultSet.getInt("client_id");
-//
-//                Order order = new Order(id1, product, count, price, dateOrder, id2);
-//
-//                clients.merge(person, new ArrayList<Order>(List.of(order)), (a,b) ->  {
-//                    List <Order> orders = new ArrayList<>(a);
-//                    orders.add(b.get(0));
-//                    return orders;
-//                });
-//            }
-//            return clients;
-//        }
-//        catch (Exception ex ) {
-//            ex.printStackTrace();
-//            return Map.of();
-//        }
-//    }
+    public Map<Client, List<Order>> findAllClients_map() {
+
+        String sql = "select * from clients c\n" +
+                "inner join orders o\n" +
+                "on o.client_id = c.id;";
+
+        try (Statement statement = connection.createStatement();
+             ResultSet resultSet = statement.executeQuery(sql)) {
+
+            Map<Client,List<Order>> clients = new LinkedHashMap<>();
+
+            while (resultSet.next()) {
+
+
+                Long id = resultSet.getLong("id");
+                String name = resultSet.getString("name");
+                Integer age = resultSet.getInt("age");
+                String city = resultSet.getString("city");
+                BigDecimal total_Sum_Orders = resultSet.getBigDecimal("total_Sum_Orders");
+
+                Client person = new Client(id, name, age, city, total_Sum_Orders);
+
+                Long id1 = resultSet.getLong(6);
+                String product = resultSet.getString("product");
+                Integer count = resultSet.getInt("count");
+                BigDecimal price = resultSet.getBigDecimal("price");
+                LocalDateTime dateOrder = resultSet.getTimestamp("dateOrder").toLocalDateTime();
+                Integer id2 = resultSet.getInt("client_id");
+
+                Order order = new Order(id1, product, count, price, dateOrder, id2);
+
+                clients.merge(person, new ArrayList<Order>(List.of(order)), (a,b) ->  {
+                    List <Order> orders = new ArrayList<>(a);
+                    orders.add(b.get(0));
+                    return orders;
+                });
+            }
+            return clients;
+        }
+        catch (Exception ex ) {
+            ex.printStackTrace();
+            return Map.of();
+        }
+    }
 }
